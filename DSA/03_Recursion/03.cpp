@@ -15,8 +15,22 @@ bool linearSearch(int arr[], int size, int key){
     }
 }
 
-bool binarySearch(){
-    //using recursion
+bool binarySearch(int arr[], int left, int right, int key){
+    //using recursion  
+    if(left>right) return false;
+    int mid = left + (right-left)/2; 
+    if(arr[mid] == key) return true;
+
+    else if(arr[mid] < key){
+        return binarySearch(arr, mid+1, right, key);
+    }
+    else{
+        return binarySearch(arr, left, mid-1, key);
+
+    }
+
+
+
 }
  
 int main()
