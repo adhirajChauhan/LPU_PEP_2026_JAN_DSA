@@ -56,6 +56,42 @@ void printList(Node* head){
     } while(temp!=head);
     
 }
+
+void deleteAtEnd(Node* &head){
+    if(head == NULL) return;
+
+    if(head->next == head){
+        delete head;
+        head = NULL;
+        return;
+    }
+
+    Node* temp = head;
+    while(temp->next->next != head){
+        temp = temp->next;
+    }
+    Node* toDel = temp->next;
+    temp->next = head;
+    delete toDel;
+}
+
+void deleteAtBeg(Node* &head){
+    if(head == NULL) return;
+
+    if(head->next ==head){
+        delete head;
+        head = NULL;
+        return;
+    }
+
+    Node* toDel = head;
+    Node* temp = head;
+
+    while(temp->next != head) temp = temp->next;
+    temp->next = head->next;
+    head = head->next;
+    delete toDel;
+}
  
 int main()
 {

@@ -94,6 +94,36 @@ void deleteAtBeg(Node* &head){
     head = head->next;
     delete temp;
 }
+
+void deleteAtPosition(Node* &head, int pos){
+    if(head == NULL) return;
+
+    if(pos == 1){
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+    Node* temp = head;
+    for(int i = 1; i < pos - 1 && temp != NULL; i++){
+        temp= temp->next;
+    }
+    if(temp == NULL || temp->next == NULL) return;
+
+    Node* toDel = temp->next;
+    temp->next = temp->next->next;
+    delete toDel;
+}
+
+
+//count how many nodes have even values
+
+bool searchNode(Node* head, int key){
+    if(head == NULL) return false;
+
+    if(head->data == key) return true;
+    return searchNode(head->next, key);
+}
  
 int main()
 {
