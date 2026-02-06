@@ -363,3 +363,224 @@ public:
         return lp->next;
     }
 };
+
+
+
+
+https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1
+
+/* Node is defined as
+  class Node {
+  public:
+    int data;
+    Node* next;
+
+    Node(int x) {
+        data = x;
+        next = nullptr;
+    }
+};
+*/
+class Solution {
+  public:
+    Node* segregate(Node* head) {
+        // code here
+       int count0 = 0, count1 = 0, count2 = 0;
+       
+       //step 1 -> count how many nodes have 0 and update count0 , similarly do for 1 and 2
+       Node* temp = head;
+       
+       while(temp != NULL){
+           if(temp->data == 0) count0++;
+           else if (temp->data == 1) count1++;
+           else count2++;
+           
+           temp= temp->next;
+       }
+       
+       // step 2 -> iterate again and overwrite the list with sorted values
+       
+       temp = head;
+       while(temp != NULL){
+           if(count0 > 0){
+               temp->data = 0;
+               count0--;
+           }
+           else if(count1 > 0){
+               temp->data = 1;
+               count1--;
+           }
+           
+           else temp->data = 2;
+           count2--;
+           
+           temp = temp->next;
+       }
+       
+       return head;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+
+        //step 1 -> count the k nodes, 
+            //check if there are atleast k noed remaining
+            //if no then do not reverse juist return the current head
+            // count
+            // while(count < k) -> one pointer that will move till j
+
+        // step 2 -> reverese exactly k nodes
+            //use that previously done iterative method for k nodes only
+
+        // recursilvely process the remaining LL
+            //connect the reversed group's last node pointer to the next group
+
+
+            ListNode* curr = head;
+            int count = 0;
+
+            while(curr != NULL && count < k){
+                curr = curr ->next;
+                count++;
+            }
+
+            if(count == k){
+                //reverse first k node
+                ListNode* prevNode = NULL;
+                ListNode* currNode = head;
+                ListNode* nextNode = NULL;
+                int count2 = 0;
+
+                while(count2< k){
+                    nextNode = currNode->next;
+                    currNode->next = prevNode;
+                    prevNode = currNode;
+                    currNode = nextNode;
+                    count2++;
+                }
+
+                head->next = reverseKGroup(curr, k);
+                return prevNode;
+
+            }
+            return head;
+        
+    }
+};
+
+
+
+
+
+https://leetcode.com/problems/lru-cache/
+class LRUCache {
+public:
+
+    class Node{
+        public:
+        int key;
+        int value;
+        Node* prev;
+        Node* next;
+
+        Node(int key, int value){
+            this->key = key;
+            this->value = value;
+            prev = NULL; next = NULL;
+        }
+    };
+    unordered_map<int, Node*> cache;
+    int cap;
+    Node* head;
+    Node* tail;
+
+    void addToFront(Node* node){
+        node->next = head->next;
+        node->prev = head;
+
+        head->next->prev = node;
+        head->next = node;
+    }
+
+    void removeNode(Node* node){
+        Node* left = node->prev;
+        Node* right = node->next;
+        left->next = right;
+        right->prev= left;
+    }
+
+    void moveToFront(Node* node){
+        removeNode(node);
+        addToFront(node);
+    }
+    
+
+
+    LRUCache(int capacity) {
+         cap = capacity;
+        head = new Node(-1,-1); //dummy1
+        tail = new Node(-1,-1); //dummy2
+        head->next = tail;
+        tail->prev = head;
+
+        
+    }
+    
+    int get(int key) {
+        //find the key in map
+            //if not found -> return -1
+        
+        // node with that key and value 
+        // i will move that node to front
+        //return node->val;
+        if(cache.find(key) == cache.end()){
+            return -1;
+        }
+        Node* node = cache[key];
+        moveToFront(node);
+        return node->value;
+
+    }
+    
+    void put(int key, int value) {
+        if(cache.find(key) != cache.end()){
+            Node* node = cache[key];
+            node->value = value;
+        moveToFront(node);
+        return;
+        }
+        if(cache.size() == cap){
+            Node* toDel = tail->prev;
+            cache.erase(toDel->key);
+            removeNode(toDel);
+            delete toDel;
+        }
+        Node* newNode = new Node(key, value);
+        cache[key] = newNode;
+        addToFront(newNode);
+
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
