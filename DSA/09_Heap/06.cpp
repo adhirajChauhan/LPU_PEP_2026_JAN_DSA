@@ -112,11 +112,137 @@ class Solution {
 
 
 
+https://leetcode.com/problems/find-k-closest-elements/
+
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+     //max heap   
+     //pair{distance, value}
+     //we want the largest distance at top
+
+     priority_queue<pair<int, int>> maxHeap;
+
+     for(int i : arr){
+        int distance = abs(i  - x);
+        maxHeap.push({distance, i});
+
+        if(maxHeap.size()> k){
+            maxHeap.pop();
+        }
+     }
+
+     vector<int> result;
+     while(!maxHeap.empty()){
+        result.push_back(maxHeap.top().second);
+        maxHeap.pop();
+     }
+     sort(result.begin(), result.end());
+     return result;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/top-k-frequent-elements/
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> freq;
+        for(int i : nums){
+            freq[i]++;
+        }
+
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> minHeap;
+        for(auto i : freq){
+            int number = i.first;
+            int count = i.second;
+
+            minHeap.push({count, number});
+
+            if(minHeap.size() > k){
+                minHeap.pop();
+            }
+        }
+
+        vector<int> result;
+        while(!minHeap.empty()){
+            result.push_back(minHeap.top().second);
+            minHeap.pop();
+
+        }
+        return result;
+    }
+};
 
 
 
 
 
+https://www.geeksforgeeks.org/problems/is-binary-tree-heap/1
+
+
+/*
+class Node {
+   public:
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+  public:
+  
+  int countNodes(Node* root){
+      if(root==NULL) return 0;
+      return 1 + countNodes(root->left) + countNodes(root->right);
+  }
+  bool isCBT(Node* root, int idx, int count){
+      if(root==NULL) return true;
+      
+      if(idx >= count) return false;
+      
+      else{
+         bool left = isCBT(root->left, 2 * idx + 1, count);
+         bool right = isCBT(root->right, 2 * idx + 2, count);
+         
+         return (left && right);
+      }
+  }
+  
+  bool isMaxOrderHeap(Node* root){
+      if(root->left == NULL && root->right == NULL) return true;
+      
+      if(root->right == NULL) return (root->data > root->left->data);
+      
+      else{
+          bool left = isMaxOrderHeap(root->left);
+          bool right = isMaxOrderHeap(root->right);
+          
+          return (left && right && (root->data > root->left->data && root->data > root->right->data));
+      }
+  }
+    bool isHeap(Node* tree) {
+        // code here
+        int idx = 0;
+        int totalCount = countNodes(tree);
+        if(isCBT(tree, idx, totalCount) && isMaxOrderHeap(tree)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
 
 
 
