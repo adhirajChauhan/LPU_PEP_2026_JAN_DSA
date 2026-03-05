@@ -1,0 +1,56 @@
+*Windows Tools*
+
+install chocolatey from the instructions given in the link below
+
+https://chocolatey.org/install
+
+choco install virtualbox --version=7.1.4 -y
+
+choco install vagrant --version=2.4.3 -y
+
+choco install git -y
+
+choco install corretto17jdk -y
+
+choco install maven -y
+
+choco install awscli -y
+
+choco install intellijidea-community -y
+
+
+choco install vscode -y
+
+
+*MacOS Tools*
+install brew from the instructions given below
+
+https://brew.sh
+
+After installing homebrew creates a file in home directory with name .curlrc
+Step -> 1. open terminal
+2. Execute below commands
+    echo -k > ~/.curlrc
+    cat ~/.curlrc
+
+
+virtualbox command is not for macOS m1/m2/m3
+brew install --cask virtualbox 
+brew install --cask vagrant-manager
+brew install git
+
+brew install openjdk@17
+
+sudo ln -sfn $HOMEBREW_PREFIX/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+
+exec zsh -l
+
+brew install maven
+
+brew install awscli
+
+brew install --cask visual-studio-code
+
+brew install --cask intellij-idea-ce
+
+brew install --cask intellij-idea-ce

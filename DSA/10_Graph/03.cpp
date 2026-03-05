@@ -356,3 +356,280 @@ class Solution {
         
     }
 };
+
+
+https://leetcode.com/problems/number-of-islands/
+
+class Solution {
+public:
+    void dfs(int row, int col, vector<vector<char>> &grid){
+        int m = grid.size();
+        int n = grid[0].size();
+
+        //row/col out of bound
+        //if curr cell is water -> 0
+        if(row < 0 || col < 0 || row >= m || col >= n || grid[row][col] == '0'){
+            return;
+        }
+        //otherwise mark current cell as visited by setting it to '0'
+        //it avoids revisiting again
+        grid[row][col] = '0';
+
+        dfs(row-1, col, grid);
+        dfs(row+1, col, grid);
+        dfs(row, col - 1, grid);
+        dfs(row, col + 1, grid);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        int isLandCount = 0;
+
+        for(int i = 0; i < m ;i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == '1'){
+                    dfs(i, j, grid);
+                    isLandCount++;
+                }
+            }
+        }
+        return isLandCount;
+
+    }
+};
+
+
+
+
+https://www.geeksforgeeks.org/problems/prerequisite-tasks/1
+
+class Solution {
+  public:
+  bool dfs(int node, vector<vector<int>>& adj, vector<int>& visited, vector<int> &rec){
+      visited[node] = 1;
+      rec[node] = 1;
+      
+      for(auto neighbour : adj[node]){
+          if(!visited[neighbour]){
+              if(dfs(neighbour, adj, visited, rec)){
+                  return true;
+              }
+          }
+          else if(rec[neighbour]){
+              return true;
+          }
+      }
+      rec[node] = 0;
+      return false;
+  }
+    bool isPossible(int N, int P, vector<pair<int, int> >& prerequisites) {
+        // Code here
+        vector<vector<int>> adj(N);
+        
+        for(auto &i : prerequisites){
+            int u = i.first;
+            int v = i.second;
+            
+            adj[v].push_back(u);
+        }
+        
+        vector<int> visited(N, 0);
+        vector<int> rec(N, 0);
+        
+        for(int i = 0; i < N; i++){
+            if(!visited[i]){
+                if(dfs(i, adj, visited, rec)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+
+
+https://www.geeksforgeeks.org/problems/prerequisite-tasks/1
+
+class Solution {
+  public:
+    bool isPossible(int N, int P, vector<pair<int, int> >& prerequisites) {
+        // Code here
+        vector<vector<int>> adj(N);
+        
+        for(auto &i : prerequisites){
+            int u = i.first;
+            int v = i.second;
+            
+            adj[v].push_back(u);
+        }
+        
+        vector<int> indegree(N, 0);
+        for(int i = 0; i < N; i++){
+            for(auto neighbour : adj[i]){
+                indegree[neighbour]++;
+            }
+        }
+        
+        queue<int> q;
+        
+        for(int i = 0; i < N; i++){
+            if(indegree[i] == 0){
+                q.push(i);
+            }
+        }
+        
+        int count = 0;
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            
+            count++;
+            
+            for(auto& neighbour : adj[node]){
+                indegree[neighbour]--;
+                if(indegree[neighbour] == 0){
+                    q.push(neighbour);
+                }
+            }
+        }
+        if(count == N) return true;
+        
+        return false;
+    }
+};
+
+
+
+
+https://www.naukri.com/code360/problems/shortest-path-in-an-unweighted-graph_981297?leftPanelTabValue=PROBLEM
+
+
+#include<unordered_map>
+#include<list>
+vector<int> shortestPath( vector<pair<int,int>> edges , int n , int m, int s , int t){
+	
+	// Write your code here
+	unordered_map<int, list<int>> adj;
+	for(int i = 0; i < edges.size(); i++){
+		int u = edges[i].first;
+		int v = edges[i].second;
+
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+
+	}
+	unordered_map<int, bool> visited;
+	unordered_map<int, int> parent;
+	queue<int> q;
+
+	q.push(s);
+	parent[s] = -1;
+	visited[s] = true;
+
+	while(!q.empty()){
+		int front = q.front();
+		q.pop();
+
+		for(auto i : adj[front]){
+			if(!visited[i]){
+				visited[i] = true;
+				parent[i] = front;
+				q.push(i);
+			}
+		}
+
+	}
+	vector<int> ans;
+	int currNode = t;
+	ans.push_back(t);
+
+	while(currNode != s){
+		currNode = parent[currNode];
+		ans.push_back(currNode);
+	}
+	reverse(ans.begin(), ans.end());
+
+	return ans;
+
+
+}
+
+
+
+
+https://www.naukri.com/code360/problems/shortest-path-in-dag_8381897?leftPanelTabValue=PROBLEM
+
+void dfs(int node, vector<vector<pair<int,int>>> &adj, vector<int> &visited,stack<int> &st){
+    visited[node] = 1;
+
+    for(auto &i : adj[node]){
+        int neighbour = i.first;
+        if(!visited[neighbour]){
+            dfs(neighbour, adj, visited, st);
+        }
+    }
+    //after visited all neighbours, push current node into stack(from here i cannot go furthur to any neighbour)
+    st.push(node);
+
+}
+
+vector<int> shortestPathInDAG(int n, int m, vector<vector<int>> &edges)
+{
+    // Write your code here
+    vector<vector<pair<int,int>>> adj(n);
+
+    for(int i = 0; i < m; i++){
+        int u = edges[i][0];
+        int v = edges[i][1];
+        int w = edges[i][2];
+        adj[u].push_back({v,w});
+
+    }
+    vector<int> visited(n, 0);
+    stack<int> st;
+
+    for(int i = 0; i < n; i++){
+        if(!visited[i]){
+            dfs(i, adj, visited, st);
+        }
+    }
+
+    vector<int> dist(n, INT_MAX);
+    dist[0] = 0;
+
+    while(!st.empty()){
+        int node = st.top();
+        st.pop();
+
+    if(dist[node] != INT_MAX){
+        for(auto &edge: adj[node]){
+            int neighbour = edge.first;
+            int weight = edge.second;
+
+            if(dist[node] + weight < dist[neighbour]){
+                dist[neighbour] = dist[node] + weight;
+            }
+        }
+    }
+
+    }
+    for(int i = 0; i < n; i++){
+        if(dist[i] == INT_MAX){
+            dist[i] = -1;
+        }
+    }
+    return dist;
+
+}
+
+
+
+
+
+
+
+
+
+
