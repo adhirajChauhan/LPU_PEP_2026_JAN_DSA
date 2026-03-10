@@ -56,3 +56,50 @@ brew install --cask intellij-idea-ce
 brew install --cask intellij-idea-ce
 
 
+
+
+Sign ups
+github.com
+
+(optional) purchase a domain
+
+https://hub.docker.com
+
+https://www.sonarsource.com/products/sonarqube/cloud/
+
+
+
+
+for windows -> how to install virtualbox
+go to
+https://www.virtualbox.org
+select Windows hosts and download and install
+
+then download 
+VirtualBox Extension Pack
+
+after this to verify if the virtual box is installed or not
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" --version
+
+in case of Hyper-V conflict -> you have to disable Hyper-VBoxManage
+-> open Powershell as Admin and run bcdedit /set hypervisorlaunchtype off then restart
+
+
+
+
+
+for mac (m1/m2) -> how to install VM
+
+go to broadcom.com -> create a free account and download VMWare fusion, then install the .dmg file
+
+vagrant needs a plugin to talk to vmWare  fusion,
+
+vagrant plugin install vagrant-vmware-desktop
+
+after installing, verify if the plugin is installed by 
+
+vagrant plugin list
+
+
+and you also need a plugin 
+brew install --cask vagrant-vmware-utility
