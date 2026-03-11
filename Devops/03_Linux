@@ -1,0 +1,40 @@
+//List files and directories (ls)
+ls -> show all files i current directory
+ls -l -> detailed info
+ls -a -> hidden files
+ls -lh -> readable form of size
+
+mkdir project{1..3} -> 3 directories at one go
+
+
+
+//Creating files (touch)
+
+touch file1.txt ->create
+
+cat file1.txt -> display the file content
+
+
+//copy (cp)
+cp file1 copy_file1 ->copy file in same directory
+cp file1 folder1/ -> copy file in another directory
+
+
+cp -r project1 backup/ -> copy a directory
+
+
+
+//Move or rename (mv)
+
+mv file1 myCodes.txt ->rename from file1 to myCodes
+
+mv myCodes.txt ~/linux-practice/backup -> move myCodes.txt to backup
+
+
+//remove (rm)
+rm file1.txt -> delete file1
+
+
+rmdir project2 -> to remove empty directory
+rm -r folder1 -> to remove non empty directory
+rm -rf backup -> force remove
