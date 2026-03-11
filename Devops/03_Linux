@@ -38,3 +38,42 @@ rm file1.txt -> delete file1
 rmdir project2 -> to remove empty directory
 rm -r folder1 -> to remove non empty directory
 rm -rf backup -> force remove
+
+
+
+
+//File type
+
+Symbol       File type
+-            Regular file
+d            Directory
+l            Symbolic link  -> it is like a shortcut to another file and it does not contain the data itself
+b            block device
+p            named pipe
+s            socket
+
+
+less students.txt -> used for viewing large files
+more students.txt -> show one page at time
+
+head -n 3 students.txt -> view first 3 lines
+tail -n 4 students.txt -> view last 4 lines
+
+
+grep Devops students.txt -> search for Devops
+grep -i devops students.txt -> search ignoring case
+
+grep -E "Cloud|Security" students.txt -> search multiple things
+
+
+cut -d " " -f3 students.txt -> extracts the 3rd feild
+
+
+sed 's/Security/Cyber/g' students.txt -> search and replace Security with cyber
+
+sed '3d' students.txt -> deleting 3rd line
+
+sed -n '2,5p' students.txt -> print from line 2 to 5
+
+
+sort -k2 students.txt -> sort by column 2
