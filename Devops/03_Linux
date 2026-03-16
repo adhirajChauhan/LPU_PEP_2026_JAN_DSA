@@ -77,3 +77,59 @@ sed -n '2,5p' students.txt -> print from line 2 to 5
 
 
 sort -k2 students.txt -> sort by column 2
+
+
+
+//File permissons
+r -> read, w -> write x -> execute
+
+   -                 rw-                rw-                r--
+file type      owner permission     group permission   other permissions
+
+
+//how to change file permissions (chmod)
+
+//symbolic method ->
+letter ->
+u  -> user(owner)
+g  -> group
+o  -> others
+a  -> all
+
+operators ->
++ -> add permission
+- -> remove permission
+= -> assign permission
+
+
+
+
+//Numeric method
+read -> 4
+write -> 2
+execute -> 1
+
+rwx -> 7
+r-x -> 5
+rw- -> 6
+r-- -> 4
+--- -> 0
+
+chmod 755 -> user(rwx) group(r-x) other(r-x)
+
+
+chmod -R for recursive permission change
+
+
+
+
+//users and groups
+
+
+sudo groupadd groupname
+
+sudo useradd -m username
+
+sudo usermod -aG frontend user1 -> add user1 to frontend group
+
+groups user1 -> check user group
