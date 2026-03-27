@@ -1,0 +1,43 @@
+A=10
+B=3
+
+Arithmetic -> + - * / %
+echo $((A+B))
+
+Relational (they are used inside [] or [[]]) ->
+-eq -> euqal
+-ne -> not equal
+-lt -> less then
+-gt -> greater than
+-le -> less than or equal
+-ge -> greater than equal
+
+for string
+= -> equal
+!= -> not equal
+-z -> zero length or empty
+-n -> non zero or not empty
+
+for files
+-f -> is a regular file
+-d -> is a directory
+-e -> if exist
+-r -> readable
+-w -> writable
+-x -> executable
+
+logical op 
+&& -> AND -> second runs only if first succeedes
+|| -> OR -> second runs if the first fails
+! -> NOT
+
+e.g -> mkdir /tmp/abc && cd /tmp/abc && git clone repo
+
+
+
+
+conditional statement
+if[]
+
+
+fi
