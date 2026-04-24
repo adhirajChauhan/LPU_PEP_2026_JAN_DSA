@@ -1,0 +1,38 @@
+//Install two VM (vm1 and vm2)
+vm1 will be the primary machine having jenkins, ansible insalled
+vm2 be a remote machine
+we can have multiple remote machine like vm3, vm4, vm5..... and we can performs same task on each machine as same time via ansible 
+
+//if you want to save password of some remote machine, so that you dont have to give password again and again
+-> ssh-keygen
+-> ssh-copy-id <add of remote>
+
+
+//commands to install ansible on ubuntu
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt-repository --yes --update ppa:ansible/ansible
+$ sudo apt install ansible
+
+//check ansible version
+-> ansible --version
+
+-> ansible localhost -m ping
+
+//path of ansible -> etc/ansible/
+
+//create a simple playbook that ping the localhost
+/*
+---
+- name: Test connectivity on localhost
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Ping localhost
+      ping:
+*/
+
+
+run the playbook by cmd -> ansible-playbook <playbook-name.yml>
+

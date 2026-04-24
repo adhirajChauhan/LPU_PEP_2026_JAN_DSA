@@ -1,0 +1,11 @@
+Docker
+
+Port Binding ->
+docker run -p<HOST_PORT>:<PORT> IMG_NAME
+
+troubleshooting cmds ->
+
+docker logs CONT_ID
+
+docker exec -it CONT_ID /bin/bash
+docker exec -it CONT_ID /bin/sh
